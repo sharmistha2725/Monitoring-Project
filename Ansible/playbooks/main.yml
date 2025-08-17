@@ -1,0 +1,9 @@
+---
+- hosts: all
+  become: yes
+  roles:
+    - awscli
+    - cloudwatch
+    - node_exporter
+    - prometheus
+    - grafana

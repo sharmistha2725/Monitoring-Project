@@ -1,0 +1,14 @@
+---
+- name: Install Docker
+  apt:
+    name: docker.io
+    state: present
+    update_cache: yes
+
+- name: Run Prometheus container
+  docker_container:
+    name: prometheus
+    image: your-dockerhub-username/prometheus:latest
+    state: started
+    ports:
+      - "9090:9090"

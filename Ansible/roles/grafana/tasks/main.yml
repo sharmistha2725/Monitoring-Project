@@ -1,0 +1,14 @@
+---
+- name: Install Docker
+  apt:
+    name: docker.io
+    state: present
+    update_cache: yes
+
+- name: Run Grafana container
+  docker_container:
+    name: grafana
+    image: your-dockerhub-username/grafana:latest
+    state: started
+    ports:
+      - "3000:3000"

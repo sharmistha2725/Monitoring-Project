@@ -1,0 +1,12 @@
+---
+- name: Install unzip
+  apt:
+    name: unzip
+    state: present
+    update_cache: yes
+
+- name: Install AWS CLI v2
+  shell: |
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    unzip awscliv2.zip
+    sudo ./aws/install
