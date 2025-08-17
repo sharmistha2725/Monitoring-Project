@@ -69,7 +69,7 @@ module "eks" {
 }
 
 module "aws_sns_topic" {
-  source = "./modules/SNS"
+  source = "./modules/sns"
   alert_email           = var.alert_email
   sns_topic_name        = var.sns_topic_name
   environment           = var.environment
