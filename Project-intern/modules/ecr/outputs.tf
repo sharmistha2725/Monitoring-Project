@@ -1,9 +1,9 @@
-output "repository_url" {
-  description = "Repository URL"
-  value       = aws_ecr_repository.foo.repository_url
+output "prometheus_repository_url" {
+  description = "Prometheus ECR repository URL"
+  value       = aws_ecr_repository.prometheus.repository_url
 }
- 
-output "repository_arn" {
-  description = "ECR repository ARN"
-  value       = aws_ecr_repository.foo.arn
+
+output "grafana_repository_url" {
+  description = "Grafana ECR repository URL"
+  value       = aws_ecr_repository.grafana.repository_url
 }
