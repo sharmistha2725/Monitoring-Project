@@ -1,5 +1,5 @@
 - name: Install Node Exporter on EC2 instances
-  hosts: ec2_nodes
+  hosts: ec2_app
   become: yes
   roles:
     - node_exporter
