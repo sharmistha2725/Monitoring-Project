@@ -83,6 +83,14 @@ module "ecr" {
   scan_on_push = true
 }
 
+module "ecs" {
+  source          = "./modules/ecs-ec2"
+  private_subnet_id = module.vpc.private_eks_subnet_ids[0]
+  key_name        = var.key_name
+  ecs_sg_id       = module.ecs_sg.security_group_id
+}
+
+
 module "eks_cluster_role" {
   source           = "./modules/iam"
   role_name        = var.eks_cluster_role_name
