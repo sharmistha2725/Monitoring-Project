@@ -35,7 +35,7 @@ resource "aws_ecs_service" "nginx_service" {
   launch_type     = "EC2"
 
   network_configuration {
-    subnets          = module.vpc.monitoring_subnet_ids
+    subnets          = var.subnet_ids
     security_groups  = [var.ecs_sg_id]
     assign_public_ip = var.assign_public_ip
   }
