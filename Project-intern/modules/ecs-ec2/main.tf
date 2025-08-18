@@ -32,10 +32,10 @@ resource "aws_ecs_service" "nginx_service" {
   cluster         = aws_ecs_cluster.this.id
   task_definition = aws_ecs_task_definition.nginx_task.arn
   desired_count   = var.desired_count
-  launch_type     = "FARGATE"
+  launch_type     = "EC2"
 
   network_configuration {
-    subnets          = var.subnet_ids
+    subnets          = module.vpc.monitoring_subnet_ids
     security_groups  = [var.ecs_sg_id]
     assign_public_ip = var.assign_public_ip
   }
