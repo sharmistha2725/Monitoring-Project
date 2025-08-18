@@ -1,13 +1,19 @@
-# output "ecs_ec2_private_ip" {
-#   value = aws_instance.ecs_ec2.private_ip
-# }
-
-output "asg_name" {
-  value       = aws_autoscaling_group.ecs_asg.name
-  description = "Name of the ECS ASG"
+output "ecs_cluster_id" {
+  value       = aws_ecs_cluster.this.id
+  description = "ID of the ECS cluster"
 }
 
-output "launch_template_id" {
-  value       = aws_launch_template.ecs_node_lt.id
-  description = "Launch template ID for ECS nodes"
+output "ecs_cluster_name" {
+  value       = aws_ecs_cluster.this.name
+  description = "Name of the ECS cluster"
+}
+
+output "ecs_service_name" {
+  value       = aws_ecs_service.nginx_service.name
+  description = "Name of the ECS service"
+}
+
+output "ecs_task_definition_arn" {
+  value       = aws_ecs_task_definition.nginx_task.arn
+  description = "ARN of the ECS task definition"
 }

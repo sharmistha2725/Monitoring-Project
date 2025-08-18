@@ -1,49 +1,44 @@
-# variable "private_subnet_id" {}
-# variable "ecs_sg_id" {}
-# variable "key_name" {}
-
-variable "ami" {
-  type        = string
-  description = "AMI ID for ECS nodes"
-}
-
-variable "instance_type" {
-  type        = string
-  description = "EC2 instance type"
-}
-
-variable "key_name" {
-  type        = string
-  description = "SSH key name"
-}
-
-variable "ecs_sg_id" {
-  type        = string
-  description = "Security group ID for ECS nodes"
-}
-
-variable "private_subnet_ids" {
-  type        = list(string)
-  description = "List of private subnet IDs across AZs"
-}
-
 variable "ecs_cluster_name" {
   type        = string
   description = "Name of the ECS cluster"
 }
 
-variable "min_size" {
+variable "subnet_ids" {
+  type        = list(string)
+  description = "Subnets for the ECS service (Fargate tasks)"
+}
+
+variable "ecs_sg_id" {
+  type        = string
+  description = "Security group ID for ECS tasks"
+}
+
+variable "desired_count" {
   type        = number
   default     = 2
+  description = "Number of ECS tasks to run"
 }
 
-variable "max_size" {
-  type        = number
-  default     = 4
+variable "task_cpu" {
+  type        = string
+  default     = "256"
+  description = "CPU units for the ECS task"
 }
 
-variable "desired_capacity" {
-  type        = number
-  default     = 2
+variable "task_memory" {
+  type        = string
+  default     = "512"
+  description = "Memory for the ECS task"
 }
 
+variable "nginx_image" {
+  type        = string
+  default     = "nginx:latest"
+  description = "Docker image for Nginx container"
+}
+
+variable "assign_public_ip" {
+  type        = bool
+  default     = true
+  description = "Assign public IP for Fargate tasks if subnets are public"
+}
