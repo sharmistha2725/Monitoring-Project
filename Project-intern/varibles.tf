@@ -102,7 +102,7 @@ variable "desired_size"{type = number}
 variable "min_size"{type = number}
 variable "max_size" {type = number}
 
-variable "key_name" {}
+
 variable "ecs_cluster_name" {}
 variable "ecs_min_size" {
   default = 2
@@ -115,16 +115,3 @@ variable "ecs_desired_capacity" {
 }
 
 # Include VPC/subnets vars from your existing root variables
-variable "vpc_cidr" {}
-variable "public_subnet_cidrs" {
-  type = list(string)
-}
-variable "private_eks_subnet_cidrs" {
-  type = list(string)
-}
-variable "monitoring_subnet_cidrs" {
-  type = list(string)
-}
-variable "availability_zones" {
-  type = list(string)
-}
