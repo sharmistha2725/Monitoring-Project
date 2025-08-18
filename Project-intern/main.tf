@@ -261,7 +261,7 @@ module "rds_sg" {
 // NACLS - when i did ansible could not access ec2-app from bastion
 resource "aws_network_acl" "private_nacl" {
   vpc_id     = module.vpc.vpc_id
-  subnet_ids = [module.vpc.private_eks_subnet_ids]  # attach to ec2-app subnet
+  subnet_ids = module.vpc.private_eks_subnet_ids  # attach to ec2-app subnet
 
   # Inbound Rules
   ingress {
