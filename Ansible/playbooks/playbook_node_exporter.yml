@@ -1,5 +1,4 @@
----
-- name: Test Node Exporter Installation
+- name: Install Node Exporter on EC2 instances
   hosts: ec2_nodes
   become: yes
   roles:
