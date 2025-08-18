@@ -5,7 +5,6 @@ terraform {
     region         = "us-east-1"
     dynamodb_table = "backendtable"
     encrypt        = true
-    use_lockfile   = true
  
   }
 }
