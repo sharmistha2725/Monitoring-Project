@@ -23,6 +23,10 @@
   
 # }
 
+resource "aws_ecs_cluster" "ecs_cluster" {
+  name = var.ecs_cluster_name
+}
+
 
 resource "aws_launch_template" "ecs_node_lt" {
   name_prefix   = "ecs-node-"

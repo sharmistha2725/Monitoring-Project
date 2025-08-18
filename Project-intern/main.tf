@@ -87,10 +87,10 @@ module "ecs" {
   source             = "./modules/ecs-ec2"
   ami                = "ami-0fc5d935ebf8bc3bc"
   instance_type      = "t3.medium"
+  ecs_cluster_name = aws_ecs_cluster.ecs_cluster.name
   key_name           = var.key_name
   ecs_sg_id          = module.ecs_sg.security_group_id
   private_subnet_ids = module.vpc.private_eks_subnet_ids
-  ecs_cluster_name   = var.ecs_cluster_name
   min_size           = var.ecs_min_size
   max_size           = var.ecs_max_size
   desired_capacity   = var.ecs_desired_capacity
