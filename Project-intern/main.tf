@@ -83,8 +83,8 @@ module "ecr" {
   scan_on_push = true
 }
 
-module "ecs" {
-  source           = "./modules/ecs"
+module "ecs-ec2" {
+  source           = "./modules/ecs-ec2"
   ecs_cluster_name = var.ecs_cluster_name
   subnet_ids       = module.vpc.private_subnet_ids
   ecs_sg_id        = module.ecs_sg.security_group_id
