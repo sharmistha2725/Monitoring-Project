@@ -84,10 +84,16 @@ module "ecr" {
 }
 
 module "ecs" {
-  source          = "./modules/ecs-ec2"
-  private_subnet_id = module.vpc.private_eks_subnet_ids[0]
-  key_name        = var.key_name
-  ecs_sg_id       = module.ecs_sg.security_group_id
+  source             = "./modules/ecs-ec2"
+  ami                = "ami-0fc5d935ebf8bc3bc"
+  instance_type      = "t3.medium"
+  key_name           = var.key_name
+  ecs_sg_id          = module.ecs_sg.security_group_id
+  private_subnet_ids = module.vpc.private_eks_subnet_ids
+  ecs_cluster_name   = var.ecs_cluster_name
+  min_size           = var.ecs_min_size
+  max_size           = var.ecs_max_size
+  desired_capacity   = var.ecs_desired_capacity
 }
 
 
@@ -171,19 +177,20 @@ module "eks_sg" {
 }
 
 module "ecs_sg" {
-  source = "./modules/security-groups"
+  source      = "./modules/security-groups"
   name        = "ecs-sg"
   type        = "ecs"     
   vpc_id      = module.vpc.vpc_id
 
   ingress_rules = [ 
     {
-    description = "HTTP from anywhere"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  } ]
+      description = "HTTP from anywhere"
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  ]
 
   egress_rules = [ {
     from_port   = 0
@@ -191,8 +198,8 @@ module "ecs_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   } ]
-
 }
+
 
 
 module "rds_sg" {
