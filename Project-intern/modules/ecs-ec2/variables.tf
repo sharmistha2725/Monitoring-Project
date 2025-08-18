@@ -47,7 +47,3 @@ variable "desired_capacity" {
   default     = 2
 }
 
-variable "ecs_cluster_name" {
-  type        = string
-  description = "The ECS cluster that EC2 instances should join"
-}
