@@ -1,0 +1,8 @@
+---
+- name: Push Alertmanager config
+  template:
+    src: alertmanager.yml.j2
+    dest: /etc/alertmanager/alertmanager.yml
+    owner: root
+    group: root
+    mode: 0644

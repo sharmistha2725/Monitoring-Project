@@ -1,0 +1,6 @@
+---
+- name: Test Prometheus + Grafana + Alertmanager Deployment
+  hosts: bastion
+  become: yes
+  roles:
+    - prometheus_grafana_alertmanager

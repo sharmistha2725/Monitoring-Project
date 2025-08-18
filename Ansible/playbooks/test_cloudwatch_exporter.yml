@@ -1,0 +1,6 @@
+---
+- name: Test CloudWatch Exporter Installation
+  hosts: ecs_nodes
+  become: yes
+  roles:
+    - cloudwatch_exporter

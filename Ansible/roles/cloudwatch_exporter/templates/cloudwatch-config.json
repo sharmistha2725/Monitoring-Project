@@ -1,0 +1,16 @@
+{
+  "agent": {
+    "metrics_collection_interval": 60,
+    "run_as_user": "root"
+  },
+  "metrics": {
+    "namespace": "Custom/EC2",
+    "metrics_collected": {
+      "mem": {},
+      "swap": {},
+      "cpu": {
+        "measurement": ["usage_system", "usage_user"]
+      }
+    }
+  }
+}

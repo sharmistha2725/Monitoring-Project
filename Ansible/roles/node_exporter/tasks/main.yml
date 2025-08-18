@@ -1,19 +1,17 @@
 ---
-- name: Download node_exporter
+- name: Download Node Exporter binary
   get_url:
     url: https://github.com/prometheus/node_exporter/releases/download/v1.6.1/node_exporter-1.6.1.linux-amd64.tar.gz
     dest: /tmp/node_exporter.tar.gz
 
-- name: Extract node_exporter
+- name: Extract Node Exporter
   unarchive:
     src: /tmp/node_exporter.tar.gz
     dest: /usr/local/bin/
     remote_src: yes
+    extra_opts: [--strip-components=1]
 
-- name: Move binary to path
-  command: mv /usr/local/bin/node_exporter-1.6.1.linux-amd64/node_exporter /usr/local/bin/node_exporter
-
-- name: Create systemd service
+- name: Create node_exporter systemd service
   copy:
     dest: /etc/systemd/system/node_exporter.service
     content: |
@@ -28,7 +26,7 @@
       [Install]
       WantedBy=multi-user.target
 
-- name: Enable and start node_exporter
+- name: Start and enable node_exporter
   systemd:
     name: node_exporter
     enabled: yes

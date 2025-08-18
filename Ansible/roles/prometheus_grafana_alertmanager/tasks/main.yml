@@ -1,0 +1,10 @@
+---
+- name: Apply Prometheus + Grafana + Alertmanager manifests
+  command: kubectl apply -f {{ item }}
+  args:
+    chdir: "{{ playbook_dir }}/../manifests"
+  with_items:
+    - grafana-deployment.yml
+    - prometheus-deployment.yml
+    - alertmanager-deployment.yml
+    - ingress.yml

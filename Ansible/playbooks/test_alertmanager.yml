@@ -1,0 +1,6 @@
+---
+- name: Test Alertmanager Configuration
+  hosts: bastion
+  become: yes
+  roles:
+    - alertmanager

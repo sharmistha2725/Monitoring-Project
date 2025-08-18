@@ -1,5 +1,0 @@
-- name: Install Prometheus Node Exporter on EC2 hosts
-  hosts: bastion:jenkins:ecs:ec2_app
-  become: yes
-  roles:
-    - node_exporter
