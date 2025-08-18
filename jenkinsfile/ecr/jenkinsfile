@@ -1,0 +1,50 @@
+pipeline {
+    agent any
+
+    environment {
+        AWS_REGION = "us-east-1"
+        AWS_CREDENTIALS = credentials('aws-creds')
+        ACCOUNT_ID = "470527513941"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', credentialsId: 'github-creds', url: 'https://github.com/sharmistha2725/Monitoring-Project'
+            }
+        }
+
+        stage('Login to ECR') {
+            steps {
+                sh '''
+                aws configure set aws_access_key_id $AWS_CREDENTIALS_USR
+                aws configure set aws_secret_access_key $AWS_CREDENTIALS_PSW
+                aws ecr get-login-password --region $AWS_REGION | \
+                  docker login --username AWS --password-stdin $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+                '''
+            }
+        }
+
+        stage('Build & Push Prometheus') {
+            steps {
+                sh '''
+                cd prometheus
+                docker build -t prometheus .
+                docker tag prometheus:latest $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/prometheus:latest
+                docker push $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/prometheus:latest
+                '''
+            }
+        }
+
+        stage('Build & Push Grafana') {
+            steps {
+                sh '''
+                cd grafana
+                docker build -t grafana .
+                docker tag grafana:latest $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/grafana:latest
+                docker push $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/grafana:latest
+                '''
+            }
+        }
+    }
+}

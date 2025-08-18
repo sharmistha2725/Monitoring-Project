@@ -1,0 +1,59 @@
+pipeline {
+    agent any
+    
+    parameters {
+        choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Choose Terraform action: apply (provision) or destroy (delete)')
+    }
+
+    environment {
+        AWS_REGION = 'us-east-1'
+        TERRAFORM_DIR = 'Project-intern'
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/sharmistha2725/Monitoring-Project',
+                    credentialsId: 'github-creds'
+            }
+        }
+
+        stage('Terraform Init & Apply') {
+            steps {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'aws-creds',
+                        usernameVariable: 'AWS_ACCESS_KEY_ID',
+                        passwordVariable: 'AWS_SECRET_ACCESS_KEY'
+                    ),
+                    file(
+                        credentialsId: 'tfvars',   
+                        variable: 'TFVARS_FILE'           
+                    )
+                ]) {
+                    dir("${TERRAFORM_DIR}") {
+                        script {
+                            if (params.ACTION == 'apply') {
+                                sh 'terraform init'
+                                sh 'terraform apply -auto-approve -var-file=${TFVARS_FILE}'
+                            } else if (params.ACTION == 'destroy') {
+                                sh 'terraform init'
+                                sh 'terraform destroy -auto-approve -var-file=${TFVARS_FILE}'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Terraform infra provisioned successfully!'
+        }
+        failure {
+            echo 'Terraform provisioning failed! Check the logs.'
+        }
+    }
+}
