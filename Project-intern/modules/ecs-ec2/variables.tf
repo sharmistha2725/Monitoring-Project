@@ -37,8 +37,4 @@ variable "nginx_image" {
   description = "Docker image for Nginx container"
 }
 
-variable "assign_public_ip" {
-  type        = bool
-  default     = true
-  description = "Assign public IP for Fargate tasks if subnets are public"
-}
+

@@ -37,7 +37,6 @@ resource "aws_ecs_service" "nginx_service" {
   network_configuration {
     subnets          = var.subnet_ids
     security_groups  = [var.ecs_sg_id]
-    assign_public_ip = var.assign_public_ip
   }
 
   deployment_minimum_healthy_percent = 50
