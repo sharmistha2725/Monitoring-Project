@@ -8,21 +8,21 @@ metadata:
     alb.ingress.kubernetes.io/target-type: ip
 spec:
   rules:   # Replace with your domain or leave blank for ALB DNS
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: grafana-service
-                port:
-                  number: 3000
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: prometheus-service
-                port:
-                  number: 9090
+      -http:
+         paths:
+           - path: /
+             pathType: Prefix
+             backend:
+               service:
+                 name: grafana-service
+                 port:
+                   number: 3000
+      -http:
+         paths:
+           - path: /
+             pathType: Prefix
+             backend:
+               service:
+                 name: prometheus-service
+                 port:
+                   number: 9090
