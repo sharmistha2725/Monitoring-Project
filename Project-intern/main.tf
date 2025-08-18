@@ -89,7 +89,6 @@ module "ecs-ec2" {
   subnet_ids       = module.vpc.monitoring_subnet_ids
   ecs_sg_id        = module.ecs_sg.security_group_id
   desired_count    = var.ecs_desired_count
-  assign_public_ip = true
 }
 
 
