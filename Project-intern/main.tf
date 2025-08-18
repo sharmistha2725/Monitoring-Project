@@ -86,7 +86,7 @@ module "ecr" {
 module "ecs-ec2" {
   source           = "./modules/ecs-ec2"
   ecs_cluster_name = var.ecs_cluster_name
-  subnet_ids       = module.vpc.private_subnet_ids
+  subnet_ids       = var.monitoring_subnet_cidrs
   ecs_sg_id        = module.ecs_sg.security_group_id
   desired_count    = var.ecs_desired_count
   assign_public_ip = true
