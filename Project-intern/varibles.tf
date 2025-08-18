@@ -103,15 +103,13 @@ variable "min_size"{type = number}
 variable "max_size" {type = number}
 
 
-variable "ecs_cluster_name" {type = string}
-variable "ecs_min_size" {
-  default = 2
-}
-variable "ecs_max_size" {
-  default = 4
-}
-variable "ecs_desired_capacity" {
-  default = 2
+variable "ecs_cluster_name" {
+  type        = string
+  description = "ECS Cluster name"
 }
 
-# Include VPC/subnets vars from your existing root variables
+variable "ecs_desired_count" {
+  type        = number
+  default     = 2
+  description = "Number of ECS tasks to run"
+}

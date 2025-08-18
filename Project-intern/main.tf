@@ -84,16 +84,12 @@ module "ecr" {
 }
 
 module "ecs" {
-  source             = "./modules/ecs-ec2"
-  ami                = "ami-0fc5d935ebf8bc3bc"
-  instance_type      = "t3.medium"
+  source           = "./modules/ecs"
   ecs_cluster_name = var.ecs_cluster_name
-  key_name           = var.key_name
-  ecs_sg_id          = module.ecs_sg.security_group_id
-  private_subnet_ids = module.vpc.private_eks_subnet_ids
-  min_size           = var.ecs_min_size
-  max_size           = var.ecs_max_size
-  desired_capacity   = var.ecs_desired_capacity
+  subnet_ids       = module.vpc.private_subnet_ids
+  ecs_sg_id        = module.ecs_sg.security_group_id
+  desired_count    = var.ecs_desired_count
+  assign_public_ip = true
 }
 
 
