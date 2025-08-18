@@ -103,7 +103,7 @@ variable "min_size"{type = number}
 variable "max_size" {type = number}
 
 
-variable "ecs_cluster_name" {}
+variable "ecs_cluster_name" {type = list(string)}
 variable "ecs_min_size" {
   default = 2
 }
